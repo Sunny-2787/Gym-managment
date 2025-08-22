@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Trainers{% endblock %}
+{% block actions %}
+<a href="{% url "TrainerForm" %}" class="px-3 py-2 rounded bg-blue-600 text-white">+ Add Trainer</a>
+{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">Trainers</h1>
+<div class="overflow-x-auto bg-white rounded shadow">
+<table class="w-full text-left">
+<thead class="bg-gray-100">
+<tr>
+<th class="p-3">#</th>
+<th class="p-3">Name</th>
+<th class="p-3">Specialty</th>
+<th class="p-3">Phone</th>
+<th class="p-3">Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for t in trainers %}
+<tr class="border-t">
+<td class="p-3">{{ forloop.counter }}</td>
+<td class="p-3 font-medium">{{ t.name }}</td>
+<td class="p-3">{{ t.specialty }}</td>
+<td class="p-3">{{ t.phone }}</td>
+<td class="p-3 flex gap-2">
+<a href="{% url "update2" t.id %}" class="text-blue-600">Edit</a>
+<form action="{% url "delet3" t.id %} " method="POST">
+    {% csrf_token %}
+<button type=submit class="text-red-600">Delete</button> 
+</form>
+</td>
+</tr>
+{% empty %}
+<tr><td colspan="5" class="p-3 text-center text-gray-500">No trainers found.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
