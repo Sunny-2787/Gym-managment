@@ -19,6 +19,7 @@
 <th class="p-3">Phone</th>
 <th class="p-3">Age</th>
 <th class="p-3">Join Date</th>
+<th class="p-3">Package</th>
 <th class="p-3">Actions</th>
 </tr>
 </thead>
@@ -31,6 +32,7 @@
 <td class="p-3">{{ m.phone }}</td>
 <td class="p-3">{{ m.age }}</td>
 <td class="p-3">{{ m.join_date }}</td>
+<td class="p-3">{{ m.plan }}</td>
 <td class="p-3 flex gap-2">
 <a href="{% url "update" m.id %}" class="text-blue-600">Edit</a>
 <form action="{% url "delet" m.id %}" method='POST'>

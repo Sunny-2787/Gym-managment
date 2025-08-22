@@ -10,6 +10,7 @@ class MemberForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Full Name'}),
             'age': forms.NumberInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Age'}),
             'gender': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            'plan': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
             'phone': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
             'email': forms.EmailInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
             'address': forms.Textarea(attrs={'class': 'border rounded p-2 w-full', 'rows': 3, 'placeholder': 'Address'}),
