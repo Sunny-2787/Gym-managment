@@ -2,7 +2,7 @@
 {% block title %}Member Form{% endblock %}
 {% block content %}
 <h1 class="text-2xl font-semibold mb-4">{{ form.instance.pk|yesno:'Edit Member,Add Member' }}</h1>
-<form method="post" class="bg-white rounded shadow p-6 space-y-4">
+<form method="post"  enctype="multipart/form-data" class="bg-white rounded shadow p-6 space-y-4">
 {% csrf_token %}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {{form.as_p}}

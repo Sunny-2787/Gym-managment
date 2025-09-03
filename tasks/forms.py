@@ -5,15 +5,18 @@ from tasks.models import Member, MembershipPlan, Trainer
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = "__all__"  
+        fields = ['name','age','gender', 'plan' ,'phone','email','address' ,'photo']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Full Name'}),
             'age': forms.NumberInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Age'}),
             'gender': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
             'plan': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'border rounded p-2 w-full','accept': 'image/*','capture': 'camera'}),
             'phone': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
             'email': forms.EmailInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
             'address': forms.Textarea(attrs={'class': 'border rounded p-2 w-full', 'rows': 3, 'placeholder': 'Address'}),
+            
+
         }
 
 
@@ -38,3 +41,6 @@ class TrainerForm(forms.ModelForm):
             'specialty': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Specialty'}),
             'phone': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
         }
+
+
+

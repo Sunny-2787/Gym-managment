@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from tasks.models import Member,Trainer,MembershipPlan
 from tasks.forms import MemberForm,PlanForm,TrainerForm
 from django.db.models import Q,Count
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required(login_url="login")
 def home(request):
     mem = Member.objects.count()
     plan = MembershipPlan.objects.count()
@@ -17,7 +20,7 @@ def home(request):
         "t": train
     })
 
-
+@login_required(login_url="login")
 def home2(request):
     query = request.GET.get('q', '') 
     if query:
@@ -28,17 +31,18 @@ def home2(request):
         members  = Member.objects.all()
     return render(request,"memberlist.html",{"members":members})
 
-
+@login_required(login_url="login")
 def home3(request):
     form = MemberForm()
     if request.method == "POST":
-        form = MemberForm(request.POST)
+        form = MemberForm(request.POST ,request.FILES)
         if form.is_valid():
             form.save()
             
             return redirect("member_list")
     return render(request,"member_from.html",{"form":form})
 
+@login_required(login_url="login")
 def M_update(request,id):
     member = Member.objects.get(id=id)
     form = MemberForm(instance=member)
@@ -49,6 +53,8 @@ def M_update(request,id):
             return redirect("member_list")
     return render(request,"member_from.html",{"form":form})
 
+
+@login_required(login_url="login")
 def  M_Delet(request,id):
     if request.method == "POST":
         member = Member.objects.get(id=id)
@@ -58,10 +64,13 @@ def  M_Delet(request,id):
         return redirect ("member_list")
         
 
+
 def home4(request):
     plans = MembershipPlan.objects.all()
     return render(request,"plan_list.html",{"plans":plans})
 
+
+@login_required(login_url="login")
 def Planform(request):
     plans = PlanForm()
     if request.method =="POST":
@@ -71,6 +80,8 @@ def Planform(request):
             return redirect("plan_list")
     return render(request,"plansform.html",{"plans":plans})
 
+
+@login_required(login_url="login")
 def UpdatePlanform(request,id):
     planslist = MembershipPlan.objects.get(id  = id)
     plans = PlanForm(instance=planslist)
@@ -81,6 +92,8 @@ def UpdatePlanform(request,id):
             return redirect("plan_list")
     return render(request,"plansform.html",{"plans":plans})
 
+
+@login_required(login_url="login")
 def DeletPlanform(request,id):
     if request.method =="POST":
         form = MembershipPlan.objects.get(id  = id)
@@ -91,11 +104,12 @@ def DeletPlanform(request,id):
 
 
 
-
 def home5(request):
     trainer=   Trainer.objects.all()
     return render(request,"Trainer_list.html",{"trainers":trainer})
 
+
+@login_required(login_url="login")
 def TrainerForms(request):
     form =TrainerForm()
     if request.method =="POST":
@@ -105,6 +119,7 @@ def TrainerForms(request):
             return redirect("Trainer_list")
     return render(request,"trainerForm.html",{"form":form})
 
+@login_required(login_url="login")
 def TrainerUpdate(request,id):
     trainer = Trainer.objects.get(id =id)
     form =TrainerForm(instance=trainer)
@@ -115,6 +130,7 @@ def TrainerUpdate(request,id):
             return redirect("Trainer_list")
     return render(request,"trainerForm.html",{"form":form})
 
+@login_required(login_url="login")
 def Delettrainerform(request,id):
     if request.method =="POST":
         T_form = Trainer.objects.get(id=id)

@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
 import dj_database_url 
 
@@ -81,22 +83,22 @@ WSGI_APPLICATION = 'gym.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'Gym',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://gym_db_h1hi_user:urSbI0jOci5ZHtQZgxpzRIaQmwvm77H4@dpg-d2kcbfemcj7s73a63ha0-a.singapore-postgres.render.com/gym_db_h1hi',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Gym',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
 }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://gym_db_h1hi_user:urSbI0jOci5ZHtQZgxpzRIaQmwvm77H4@dpg-d2kcbfemcj7s73a63ha0-a.singapore-postgres.render.com/gym_db_h1hi',
+#         conn_max_age=600
+#     )
+# }
 
 
 
@@ -141,3 +143,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "home/"
+LOGOUT_REDIRECT_URL = "/tasks"
+
+
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

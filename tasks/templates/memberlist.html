@@ -14,11 +14,13 @@
 <thead class="bg-gray-100">
 <tr>
 <th class="p-3">#</th>
+<th class="p-3">Photo</th>
 <th class="p-3">Name</th>
 <th class="p-3">Gender</th>
 <th class="p-3">Phone</th>
 <th class="p-3">Age</th>
 <th class="p-3">Join Date</th>
+<th class="p-3">Time</th>
 <th class="p-3">Package</th>
 <th class="p-3">Actions</th>
 </tr>
@@ -27,11 +29,21 @@
 {% for m in members %}
 <tr class="border-t">
 <td class="p-3">{{ forloop.counter }}</td>
+
+<td class="p-3">
+{% if m.photo %}
+  <img src="{{ m.photo.url }}" alt="" class="w-10 h-10 rounded-full object-cover">
+{% else %}
+  <span class="text-gray-400 text-sm">No Photo</span>
+{% endif %}
+
+
 <td class="p-3 font-medium">{{ m.name }}</td>
 <td class="p-3">{{ m.get_gender_display }}</td>
 <td class="p-3">{{ m.phone }}</td>
 <td class="p-3">{{ m.age }}</td>
 <td class="p-3">{{ m.join_date }}</td>
+<td class="p-3">{{ m.Time }}</td>
 <td class="p-3">{{ m.plan }}</td>
 <td class="p-3 flex gap-2">
 <a href="{% url "update" m.id %}" class="text-blue-600">Edit</a>

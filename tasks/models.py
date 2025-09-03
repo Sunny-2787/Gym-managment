@@ -9,7 +9,7 @@ class Member(models.Model):
         ("M", "Male"),
         ("F", "Female"),
     ]
-    
+    photo = models.ImageField(upload_to="Member/",blank=True,null=True,default="Member/default.png")
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
@@ -17,6 +17,7 @@ class Member(models.Model):
     address = models.TextField()
     email = models.EmailField(blank=True,null=True)
     join_date = models.DateField(auto_now_add=True)
+    Time = models.TimeField(auto_now_add = True,blank=True,null=True)
     plan = models.ForeignKey("MembershipPlan", on_delete=models.SET_NULL,null=True,blank=True,related_name="members")
     
 

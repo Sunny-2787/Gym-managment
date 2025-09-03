@@ -21,11 +21,26 @@
 
 
 
+
 <div class="ml-auto">
 {% block actions %}{% endblock %}
 </div>
+<div class="ml-auto flex items-center">
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" 
+                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+            Logout
+        </button>
+    </form>
 </div>
 </nav>
+
+
+ 
+
+
+
 
 
 <main class="mt-20 mx-auto max-w-[1400px]">
@@ -89,7 +104,11 @@
                 </div>
         </a>
                 
-            </div>
+        </div>
+
+
+
+       
 {% block content %}{% endblock %}
 </main>
 </body>
