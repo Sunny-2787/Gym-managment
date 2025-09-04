@@ -15,9 +15,7 @@ class Member(models.Model):
     join_date = models.DateField(auto_now_add=True)
     Time = models.TimeField(auto_now_add = True,blank=True,null=True)
     plan = models.ForeignKey("MembershipPlan", on_delete=models.SET_NULL,null=True,blank=True,related_name="members")
-    trainers = models.ManyToManyField(
-        "Trainer", blank=True,null=True, related_name="members"
-    )
+    trainers = models.ManyToManyField("Trainer", blank=True,null=True, related_name="members")
     
     def __str__(self):
         return self.name

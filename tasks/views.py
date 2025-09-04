@@ -4,8 +4,16 @@ from tasks.models import Member,Trainer,MembershipPlan
 from tasks.forms import MemberForm,PlanForm,TrainerForm
 from django.db.models import Q,Count
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
-
+def reset_admin_password(request):
+    try:
+        user = User.objects.get(username="admin")  
+        user.set_password("NewStrongPassword123")
+        user.save()
+        return HttpResponse("✅ Password reset successful! Login with admin / NewStrongPassword123")
+    except User.DoesNotExist:
+        return HttpResponse("❌ Admin user not found.")
 # Create your views here.
 @login_required(login_url="login")
 def home(request):
