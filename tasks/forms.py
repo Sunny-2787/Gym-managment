@@ -5,12 +5,13 @@ from tasks.models import Member, MembershipPlan, Trainer
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ['name','age','gender', 'plan' ,'phone','email','address' ,'photo']
+        fields = ['name','age','gender', 'plan','trainers' ,'phone','email','address' ,'photo']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Full Name'}),
             'age': forms.NumberInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Age'}),
             'gender': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
             'plan': forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            'trainers': forms.CheckboxSelectMultiple(attrs={'class': 'border rounded p-2 w-full'}),
             'photo': forms.ClearableFileInput(attrs={'class': 'border rounded p-2 w-full','accept': 'image/*','capture': 'camera'}),
             'phone': forms.TextInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),
             'email': forms.EmailInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Phone Number'}),

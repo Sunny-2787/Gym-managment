@@ -1,8 +1,4 @@
-
-# Create your models here.
 from django.db import models
-
-
 
 class Member(models.Model):
     GENDER_CHOICES = [
@@ -19,13 +15,13 @@ class Member(models.Model):
     join_date = models.DateField(auto_now_add=True)
     Time = models.TimeField(auto_now_add = True,blank=True,null=True)
     plan = models.ForeignKey("MembershipPlan", on_delete=models.SET_NULL,null=True,blank=True,related_name="members")
+    trainers = models.ManyToManyField(
+        "Trainer", blank=True,null=True, related_name="members"
+    )
     
-
     def __str__(self):
         return self.name
-
-
-
+    
 class MembershipPlan(models.Model):
     plan_name = models.CharField(max_length=50)
     duration = models.IntegerField(help_text="Duration in days")
@@ -33,8 +29,7 @@ class MembershipPlan(models.Model):
 
     def __str__(self):
         return f"{self.plan_name} ({self.duration} days ) (${self.fees}) "
-
-
+    
 class Trainer(models.Model):
     name = models.CharField(max_length=100)
     specialty = models.CharField(max_length=100)

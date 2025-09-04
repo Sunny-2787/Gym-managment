@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'gym.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# LocalHost DATABASES
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -93,6 +94,7 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+# Online DATABASES
 # DATABASES = {
 #     'default': dj_database_url.config(
 #         default='postgresql://gym_db_h1hi_user:urSbI0jOci5ZHtQZgxpzRIaQmwvm77H4@dpg-d2kcbfemcj7s73a63ha0-a.singapore-postgres.render.com/gym_db_h1hi',
