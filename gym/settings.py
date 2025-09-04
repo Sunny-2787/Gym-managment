@@ -84,23 +84,23 @@ WSGI_APPLICATION = 'gym.wsgi.application'
 #     }
 # }
 # LocalHost DATABASES
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Gym',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-# Online DATABASES
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://gym_db_h1hi_user:urSbI0jOci5ZHtQZgxpzRIaQmwvm77H4@dpg-d2kcbfemcj7s73a63ha0-a.singapore-postgres.render.com/gym_db_h1hi',
-#         conn_max_age=600
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Gym',
+#         'USER': 'postgres',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
 # }
+# Online DATABASES
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://gym_db1_user:nKALTzEW6B5fAjGug4PtuTMSeRB2VhEh@dpg-d2sucm15pdvs739122fg-a.oregon-postgres.render.com/gym_db1',
+        conn_max_age=600
+    )
+}
 
 
 
