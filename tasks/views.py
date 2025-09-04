@@ -6,6 +6,18 @@ from django.db.models import Q,Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+def create_admin_user(request):
+   
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="NewStrongPassword123"
+        )
+        return HttpResponse("✅ Admin user created! Login with admin / NewStrongPassword123")
+    else:
+        return HttpResponse("⚠️ Admin already exists. Try reset instead.")
+
 def reset_admin_password(request):
     try:
         user = User.objects.get(username="admin")  
