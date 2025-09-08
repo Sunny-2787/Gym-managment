@@ -12,18 +12,18 @@ def create_admin_user(request):
         User.objects.create_superuser(
             username="admin",
             email="admin@example.com",
-            password="NewStrongPassword123"
+            password="NewStrongPassword1234"
         )
-        return HttpResponse("✅ Admin user created! Login with admin / NewStrongPassword123")
+        return HttpResponse("✅ Admin user created! Login with admin / NewStrongPassword1234")
     else:
         return HttpResponse("⚠️ Admin already exists. Try reset instead.")
 
 def reset_admin_password(request):
     try:
         user = User.objects.get(username="admin")  
-        user.set_password("NewStrongPassword123")
+        user.set_password("NewStrongPassword1234")
         user.save()
-        return HttpResponse("✅ Password reset successful! Login with admin / NewStrongPassword123")
+        return HttpResponse("✅ Password reset successful! Login with admin / NewStrongPassword1234")
     except User.DoesNotExist:
         return HttpResponse("❌ Admin user not found.")
 
