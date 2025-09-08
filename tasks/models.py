@@ -38,3 +38,31 @@ class Trainer(models.Model):
 
 
 
+class Payment(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="payments")
+    plan = models.ForeignKey(MembershipPlan, on_delete=models.CASCADE, related_name="payments")
+    amount = models.DecimalField(max_digits=10, decimal_places=2,default="00.00")
+    payment_date = models.DateTimeField(auto_now_add=True)
+    method = models.CharField(
+        max_length=50,
+        choices=[
+            ("Cash", "Cash"),
+            ("Card", "Card"),
+            ("Bkash", "Bkash"),
+            ("Nagad", "Nagad"),
+            ("Bank", "Bank Transfer"),
+        ],
+        default="Cash"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ("Paid", "Paid"),
+            ("Pending", "Pending"),
+            ("Partial", "Partial"),
+        ],
+        default="Pending"
+    )
+
+    def __str__(self):
+        return f"Payment of {self.amount} by {self.member.name} on {self.payment_date.strftime('%Y-%m-%d')}"

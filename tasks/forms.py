@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Member, MembershipPlan, Trainer
+from tasks.models import Member, MembershipPlan, Trainer ,Payment
 
 
 class MemberForm(forms.ModelForm):
@@ -45,3 +45,14 @@ class TrainerForm(forms.ModelForm):
 
 
 
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = ["member", "plan", "amount", "method", "status"]
+        widgets = {
+            "member": forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            "plan": forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            "amount": forms.NumberInput(attrs={'class': 'border rounded p-2 w-full', 'placeholder': 'Payment Amount'}),
+            "method": forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+            "status": forms.Select(attrs={'class': 'border rounded p-2 w-full'}),
+        }

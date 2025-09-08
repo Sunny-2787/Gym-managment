@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from tasks.models import Member,Trainer,MembershipPlan
-from tasks.forms import MemberForm,PlanForm,TrainerForm
+from tasks.models import Member,Trainer,MembershipPlan,Payment
+from tasks.forms import MemberForm,PlanForm,TrainerForm,PaymentForm
 from django.db.models import Q,Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -26,7 +26,12 @@ def reset_admin_password(request):
         return HttpResponse("✅ Password reset successful! Login with admin / NewStrongPassword123")
     except User.DoesNotExist:
         return HttpResponse("❌ Admin user not found.")
-# Create your views here.
+
+def member_details(request, id):
+    member = Member.objects.get(id=id)
+    return render(request, "member_details.html", {"member": member})
+
+
 @login_required(login_url="login")
 def home(request):
     mem = Member.objects.count()
@@ -161,5 +166,26 @@ def Delettrainerform(request,id):
 
 
 
+
+
+@login_required(login_url="login")
+def payment_create(request, member_id):
+    member = get_object_or_404(Member, id=member_id)
+    if request.method == "POST":
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.member = member  
+            payment.plan = member.plan  
+            payment.amount = member.plan.fees  
+            payment.save()
+            return redirect("member_details", id=member.id)
+    else:
+        form = PaymentForm(initial={
+            "member": member,
+            "plan": member.plan,
+            "amount": member.plan.fees if member.plan else None,
+        })
+    return render(request, "payment_form.html", {"form": form, "member": member})
 
 

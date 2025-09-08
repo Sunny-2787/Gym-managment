@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}Member Details{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto p-6 bg-white rounded shadow mt-6">
+
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold">Member Details</h1>
+        <a href="{% url 'member_list' %}" class="px-3 py-2 rounded bg-gray-800 text-white text-sm">Back to List</a>
+    </div>
+
+
+    <div class="flex items-center gap-6 mb-6">
+        {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-24 h-24 rounded-full object-cover border">
+        {% else %}
+            <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 border">No Photo</div>
+        {% endif %}
+        <div>
+            <h2 class="text-xl font-bold">{{ member.name }}</h2>
+            <p class="text-gray-600">{{ member.get_gender_display }}, {{ member.age }} years old</p>
+            <p class="text-gray-600">Phone: {{ member.phone }}</p>
+            <p class="text-gray-600">Email: {{ member.email }}</p>
+        </div>
+    </div>
+
+ 
+    <div class="mb-4">
+        <h3 class="font-semibold text-gray-700">Address</h3>
+        <p class="text-gray-600">{{ member.address|default:"No address provided" }}</p>
+    </div>
+
+
+    <div class="mb-4">
+        <h3 class="font-semibold text-gray-700">Plan</h3>
+        {% if member.plan %}
+            <p class="text-gray-600">{{ member.plan.plan_name }} - {{ member.plan.duration }} days - Fees: {{ member.plan.fees }}</p>
+        {% else %}
+            <p class="text-gray-600">No plan assigned</p>
+        {% endif %}
+    </div>
+
+
+    <div class="mb-4">
+        <h3 class="font-semibold text-gray-700">Trainer(s)</h3>
+        {% if member.trainers.all %}
+            <ul class="list-disc list-inside text-gray-600">
+                {% for trainer in member.trainers.all %}
+                    <li>{{ trainer.name }} ({{ trainer.specialty }})</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-600">No trainer assigned</p>
+        {% endif %}
+    </div>
+
+    <div class="mb-6 flex gap-6">
+        <div>
+            <h3 class="font-semibold text-gray-700">Join Date</h3>
+            <p class="text-gray-600">{{ member.join_date }}</p>
+        </div>
+        <div>
+            <h3 class="font-semibold text-gray-700">Time</h3>
+            <p class="text-gray-600">{{ member.Time }}</p>
+        </div>
+    </div>
+
+
+
+<div class="mb-6">
+    <h3 class="text-lg font-semibold mb-2">Payments</h3>
+    <div class="overflow-x-auto bg-white rounded shadow">
+        <table class="w-full text-left">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="p-3">#</th>
+                    <th class="p-3">Amount</th>
+                    <th class="p-3">Date</th>
+                    <th class="p-3">Time</th>
+                    <th class="p-3">Method</th>
+                    <th class="p-3">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in member.payments.all %}
+                    <tr class="border-t">
+                        <td class="p-3">{{ forloop.counter }}</td>
+                        <td class="p-3">{{ payment.amount }}</td>
+                        <td class="p-3">{{ payment.payment_date|date:"Y-m-d" }}</td>
+                        <td class="p-3">{{ payment.payment_date|time:"H:i:s" }}</td>
+                        <td class="p-3">{{ payment.method }}</td>
+                        <td class="p-3">
+                            {% if payment.status == "Paid" %}
+                                <span class="text-green-600 font-semibold">{{ payment.status }}</span>
+                            {% elif payment.status == "Pending" %}
+                                <span class="text-yellow-600 font-semibold">{{ payment.status }}</span>
+                            {% else %}
+                                <span class="text-red-600 font-semibold">{{ payment.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="p-3 text-center text-gray-500">No payments made yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="flex justify-between items-center">
+    <div class="flex gap-2">
+
+        <a href="{% url 'update' member.id %}" class="px-3 py-2 rounded bg-blue-600 text-white text-sm">Edit</a>
+        <form action="{% url 'delet' member.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="px-3 py-2 rounded bg-red-600 text-white text-sm">Delete</button>
+        </form>
+
+        
+    
+    </div>
+    <div >
+        <a href="{% url 'payment_create' member.id %}" class="px-3 py-2 rounded bg-green-600 text-white text-sm">Make Payment</a>
+    </div> 
+</div>
+
+
+{% endblock %}

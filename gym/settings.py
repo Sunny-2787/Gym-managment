@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'gym.wsgi.application'
 # Online DATABASES
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://gym_db1_user:nKALTzEW6B5fAjGug4PtuTMSeRB2VhEh@dpg-d2sucm15pdvs739122fg-a.oregon-postgres.render.com/gym_db1',
+        default='postgresql://gym_db_vxeu_user:Pe3PuscyjUum7razAimOzAiV3BbzemYc@dpg-d2vg9hndiees73e33ju0-a.oregon-postgres.render.com/gym_db_vxeu',
         conn_max_age=600
     )
 }
